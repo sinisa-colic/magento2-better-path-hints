@@ -1,14 +1,17 @@
 <?php
 
+
 namespace MageRules\BetterPathHints\Plugin;
 
-use Magento\Framework\View\Layout;
+
+use Magento\Cms\Block\Block;
 use MageRules\BetterPathHints\Model\Wrapper;
 
 /**
- * Plugin class for @see \Magento\Framework\View\Layout
+ * Class CmsBlockPlugin
+ * @package MageRules\BetterPathHints\Plugin
  */
-class LayoutPlugin
+class CmsBlockPlugin
 {
     /**
      * @var Wrapper
@@ -16,7 +19,7 @@ class LayoutPlugin
     private $wrapper;
 
     /**
-     * LayoutPlugin constructor.
+     * BlockPlugin constructor.
      * @param Wrapper $wrapper
      */
     public function __construct(
@@ -26,23 +29,21 @@ class LayoutPlugin
     }
 
     /**
-     * @param Layout $layout
+     * @param Block $subject
      * @param callable $proceed
-     * @param $name
      * @return string
      */
-    public function aroundRenderNonCachedElement(Layout $layout, callable $proceed, $name)
+    public function aroundToHtml(Block $subject, callable $proceed)
     {
-        $result = $proceed($name);
-        if ($layout->isBlock($name)) {
+        $result = $proceed();
+        if(!$this->wrapper->getConfig()->isEnabled()){
             return $result;
         }
         return $this->wrapper->wrapHtml(
             $result,
-            $layout->getElementProperty($name, 'type'),
+            'cms-block',
             [
-                'name'   => $name,
-                'parent' => $layout->getParentName($name),
+                'identifier' => $subject->getData('block_id')
             ]
         );
     }

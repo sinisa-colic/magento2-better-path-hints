@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <better_path_hints>
+            <general>
+                <enabled>1</enabled>
+                <wrap_empty>0</wrap_empty>
+                <block_data>0</block_data>
+            </general>
+        </better_path_hints>
+    </default>
+</config>
