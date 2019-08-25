@@ -53,7 +53,7 @@ class Wrapper
         $attributes = [],
         $closingAttributes = []
     ) {
-        if ((!$tag) || (!$this->config->shouldWrapEmptyBlocks() && empty($html))) {
+        if ($this->isJSON($html) || (!$tag) || (!$this->config->shouldWrapEmptyBlocks() && empty($html))) {
             return $html;
         }
         $tag .= '-' . substr(uniqid(), -5);
@@ -93,5 +93,11 @@ class Wrapper
                 }, array_keys($attributes))
             )
         );
+    }
+
+    private function isJSON($html)
+    {
+        json_decode($html);
+        return json_last_error() == 0;
     }
 }
