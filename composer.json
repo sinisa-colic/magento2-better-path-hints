@@ -2,7 +2,7 @@
     "name": "magerules/module-betterpathhints",
     "description": "N/A",
     "require": {
-        "php": "7.*"
+        "php": "7.*|8.*"
     },
     "type": "magento2-module",
     "version": "100.0.0",
